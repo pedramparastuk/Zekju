@@ -36,7 +36,6 @@ class Program
     static async Task Main(string[] args)
     {
         var host = CreateHostBuilder(args).Build();
-
         var errors = Validation(args);
 
         if (errors.Any())
