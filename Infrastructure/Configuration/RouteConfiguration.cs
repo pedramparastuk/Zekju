@@ -14,5 +14,11 @@ public class RouteConfiguration : IEntityTypeConfiguration<Route>
         builder.Property(p => p.OriginCityId).HasColumnName("origin_city_id");
         builder.Property(p => p.DestinationCityId).HasColumnName("destination_city_id");
         builder.Property(p => p.DepartureDate).HasColumnName("departure_date");
+
+        builder.HasIndex(p => new
+        {
+            p.OriginCityId,
+            p.DestinationCityId
+        }).IsUnique(false);
     }
 }

@@ -13,5 +13,13 @@ public class SubscriptionConfiguration: IEntityTypeConfiguration<Subscription>
         builder.Property(p => p.AgencyId).HasColumnName("agency_id");
         builder.Property(p => p.OriginCityId).HasColumnName("origin_city_id");
         builder.Property(p => p.DestinationCityId).HasColumnName("destination_city_id");
+
+
+        builder.HasIndex(p => new
+        {
+            p.AgencyId,
+            p.OriginCityId,
+            p.DestinationCityId
+        }).IsUnique(false);
     }
 }

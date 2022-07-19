@@ -35,6 +35,7 @@ class Program
 
     static async Task Main(string[] args)
     {
+        //args = new string[] { "2018-01-01", "2018-01-15", "1" };
         var host = CreateHostBuilder(args).Build();
         var errors = Validation(args);
 

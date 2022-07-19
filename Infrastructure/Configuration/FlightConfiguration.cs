@@ -15,9 +15,13 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight>
         builder.Property(p => p.DepartureTime).HasColumnName("departure_time");
         builder.Property(p => p.ArrivalDate).HasColumnName("arrival_time");
         builder.Property(p => p.AirlineId).HasColumnName("airline_id");
-        
+
         builder.HasOne<Route>(flight => flight.Route)
             .WithMany(route => route.Flights)
             .HasForeignKey(flight => flight.RouteId);
+
+
+        builder.HasIndex(p => p.DepartureTime).IsUnique(false);
+        builder.HasIndex(p => p.RouteId).IsUnique(false);
     }
 }
