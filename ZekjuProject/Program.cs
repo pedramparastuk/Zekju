@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
+using CsvHelper;
 using Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,7 +37,6 @@ class Program
 
     static async Task Main(string[] args)
     {
-        //args = new string[] { "2018-01-01", "2018-01-15", "1" };
         var host = CreateHostBuilder(args).Build();
         var errors = Validation(args);
 
@@ -57,8 +58,15 @@ class Program
         watch.Start();
         var data = await calculator.GetFlights(request, default);
         watch.Stop();
+        
+        using (var writer = new StreamWriter("result.csv"))
+        using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            csv.WriteRecords(data);
 
+        Console.Clear();
         Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
+        Console.WriteLine($"write in result.csv");
+
         await host.RunAsync();
     }
 
